@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FileViewer</string>
+    <string name="error_load_data">Data loading error: </string>
+    <string name="error_loading_file">File loading error: </string>
+    <string name="error_loading_pdf_file">Error loading pdf file: </string>
+    <string name="newest">newest</string>
+    <string name="oldest">oldest</string>
+    <string name="sort_by_name_ascending">Sort by name ascending</string>
+    <string name="sort_by_name_desceding">Sort by name desceding</string>
+    <string name="sample_date">May 13, 2019</string>
+    <string name="sample_name">File Name</string>
+    <string name="file_image">file image</string>
+    <string name="pdf_extension_file">.pdf</string>
+    <string name="asceding">ascending</string>
+    <string name="desceding">desceding</string>
+    <string name="filter_name">Filter</string>
+</resources>

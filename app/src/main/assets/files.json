@@ -1,0 +1,72 @@
+[
+  {
+    "id": 0,
+    "filename": "Sample",
+    "url": "https://s3-us-west-2.amazonaws.com/android-task/sample.pdf",
+    "description": "This is a description",
+    "date": "May 10, 2019"
+  },
+  {
+    "id": 1,
+    "filename": "Sample 2",
+    "url": "https://s3-us-west-2.amazonaws.com/android-task/sample+2.pdf",
+    "description": "Description 2 is here",
+    "date": "May 11, 2019"
+  },
+  {
+    "id": 2,
+    "filename": "Sample 3",
+    "url": "https://s3-us-west-2.amazonaws.com/android-task/sample+3.pdf",
+    "description": "Description 3 is here",
+    "date": "May 13, 2019"
+  },
+  {
+    "id": 3,
+    "filename": "Sample 4",
+    "url": "https://s3-us-west-2.amazonaws.com/android-task/sample+4.pdf",
+    "description": "This is a unique description",
+    "date": "May 15, 2019"
+  },
+  {
+    "id": 4,
+    "filename": "Sample 5",
+    "url": "https://s3-us-west-2.amazonaws.com/android-task/sample+5.pdf",
+    "description": "This description is short",
+    "date": "May 20, 2019"
+  },
+  {
+    "id": 5,
+    "filename": "Sample 6",
+    "url": "https://s3-us-west-2.amazonaws.com/android-task/sample.pdf",
+    "description": "This is a description",
+    "date": "May 25, 2019"
+  },
+  {
+    "id": 6,
+    "filename": "Sample 7",
+    "url": "https://s3-us-west-2.amazonaws.com/android-task/sample+2.pdf",
+    "description": "Description 2 is here",
+    "date": "May 30, 2019"
+  },
+  {
+    "id": 7,
+    "filename": "Sample 8",
+    "url": "https://s3-us-west-2.amazonaws.com/android-task/sample+3.pdf",
+    "description": "Description 3 is here",
+    "date": "June 05, 2019"
+  },
+  {
+    "id": 8,
+    "filename": "Sample 9",
+    "url": "https://s3-us-west-2.amazonaws.com/android-task/sample+4.pdf",
+    "description": "This is a unique description",
+    "date": "June 10, 2019"
+  },
+  {
+    "id": 9,
+    "filename": "Sample 10",
+    "url": "https://s3-us-west-2.amazonaws.com/android-task/sample+5.pdf",
+    "description": "This description is short",
+    "date": "June 15, 2019"
+  }
+]
