@@ -22,6 +22,14 @@ class FilesAdapter : ListAdapter<File, FilesAdapter.FileHolder>(DiffCallback()) 
         return FileHolder(view)
     }
 
+    val items: MutableList<File> = mutableListOf()
+
+    fun sumbitList(newItems: Collection<File>) {
+        items.clear()
+        items.addAll(newItems)
+        super.submitList(items)
+    }
+
     override fun onBindViewHolder(holder: FileHolder, position: Int) = holder.bind(getItem(position))
 
     inner class FileHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -38,11 +46,14 @@ class FilesAdapter : ListAdapter<File, FilesAdapter.FileHolder>(DiffCallback()) 
             }
         }
     }
+
+    internal fun getFileAtPosition(position: Int) = items[position]
 }
+
 
 class DiffCallback : DiffUtil.ItemCallback<File>() {
     override fun areItemsTheSame(oldItem: File, newItem: File): Boolean = oldItem.id == newItem.id
     override fun areContentsTheSame(oldItem: File, newItem: File): Boolean =
         oldItem.date == newItem.date &&
-        oldItem.filename == newItem.filename
+                oldItem.filename == newItem.filename
 }
