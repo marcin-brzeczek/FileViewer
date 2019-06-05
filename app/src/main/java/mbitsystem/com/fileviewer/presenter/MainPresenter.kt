@@ -19,7 +19,11 @@ class MainPresenter(private val fileInteractor: FileInteractor) {
         compositeDisposable.add(displayFilesDesceding())
     }
 
-    fun unbind() = if (!compositeDisposable.isDisposed) compositeDisposable.dispose() else Unit
+    fun unbind() {
+        if (!compositeDisposable.isDisposed) {
+            compositeDisposable.dispose()
+        }
+    }
 
     private fun displayAllFiles() = view.getFilesIntent()
         .doOnNext { Timber.d("Intent: Display Files") }
@@ -32,7 +36,6 @@ class MainPresenter(private val fileInteractor: FileInteractor) {
     private fun displayFilesDesceding() = view.getFilesDescedingIntent()
         .doOnNext { Timber.d("Intent: Display Files Desceding") }
         .flatMap<FileState> { fileInteractor.getFilesDesceding() }
-        .startWith(FileState.LoadingState)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { view.render(it) }
 
@@ -40,7 +43,6 @@ class MainPresenter(private val fileInteractor: FileInteractor) {
     private fun displayFilesAsceding() = view.getFilesAscedingIntent()
         .doOnNext { Timber.d("Intent: Display Files Asceding") }
         .flatMap<FileState> { fileInteractor.getFilesAsceding() }
-        .startWith(FileState.LoadingState)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { view.render(it) }
 }

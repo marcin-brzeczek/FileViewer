@@ -25,6 +25,7 @@ class DetailsPresenter(private val fileInteractor: FileInteractor) {
     }
 
     private fun observeFileDisplayIntent() = view.displayFileIntent()
+        .doOnNext { Timber.d("Intent: Display File pdf") }
         .flatMap<FileState> { fileInteractor.getFileInputStream(it.url)}
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

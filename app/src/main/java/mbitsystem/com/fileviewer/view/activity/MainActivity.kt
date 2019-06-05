@@ -43,10 +43,10 @@ class MainActivity : BaseActivity(), MainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        presenter = MainPresenter(FileInteractor(fileRepository))
-        presenter.bind(this)
         recycler_view.adapter = FilesAdapter()
         recycler_view.layoutManager = LinearLayoutManager(this)
+        presenter = MainPresenter(FileInteractor(fileRepository))
+        presenter.bind(this)
     }
 
     override fun getFilesIntent(): Observable<Unit> = Observable.just(Unit)
@@ -84,7 +84,6 @@ class MainActivity : BaseActivity(), MainView {
         recycler_view.apply {
             isEnabled = true
             (adapter as FilesAdapter).submitList(dataState.data)
-            (layoutManager as? LinearLayoutManager)?.scrollToPosition(0)
         }
     }
 
@@ -93,7 +92,7 @@ class MainActivity : BaseActivity(), MainView {
     }
 
     override fun onStop() {
-        presenter.unbind()
         super.onStop()
+        presenter.unbind()
     }
 }

@@ -3,8 +3,6 @@ package mbitsystem.com.fileviewer.injection
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import dagger.Module
 import dagger.Provides
 import mbitsystem.com.fileviewer.InitApp
@@ -13,6 +11,7 @@ import mbitsystem.com.fileviewer.data.dao.FileDao
 import mbitsystem.com.fileviewer.data.db.AppDatabase
 import mbitsystem.com.fileviewer.data.repository.FileRepository
 import mbitsystem.com.fileviewer.data.repository.IRepository
+import mbitsystem.com.fileviewer.utils.ioThread
 import javax.inject.Singleton
 
 private const val DB_NAME = "FileViewerDatabase"
@@ -27,8 +26,9 @@ class RoomModule(application: InitApp) {
             .addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
-                    val requestInsertFiles = OneTimeWorkRequestBuilder<SeedDatabaseWorkerFiles>().build()
-                    WorkManager.getInstance().enqueue(requestInsertFiles)
+                    ioThread {
+                        SeedDatabaseWorkerFiles(providesAppDatabase(), application).populateDatabase()
+                    }
                 }
             })
             .build()

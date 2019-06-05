@@ -2,7 +2,6 @@ package mbitsystem.com.fileviewer.view.activity
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_details.*
 import mbitsystem.com.fileviewer.KEY_INTENT_FILE
@@ -13,7 +12,10 @@ import mbitsystem.com.fileviewer.data.repository.FileRepository
 import mbitsystem.com.fileviewer.domain.FileState
 import mbitsystem.com.fileviewer.presenter.DetailsPresenter
 import mbitsystem.com.fileviewer.view.DetailsView
+import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.longToast
+import org.jetbrains.anko.newTask
 import java.io.InputStream
 import javax.inject.Inject
 
@@ -62,5 +64,9 @@ class DetailsActivity : BaseActivity(), DetailsView {
     override fun onStop() {
         presenter.unbind()
         super.onStop()
+    }
+
+    override fun onBackPressed() {
+        startActivity(intentFor<MainActivity>().newTask().clearTask())
     }
 }

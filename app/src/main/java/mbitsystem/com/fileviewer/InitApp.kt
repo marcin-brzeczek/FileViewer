@@ -6,9 +6,7 @@ import dagger.android.HasActivityInjector
 import mbitsystem.com.fileviewer.injection.AppModule
 import mbitsystem.com.fileviewer.injection.DaggerAppComponent
 import mbitsystem.com.fileviewer.injection.RoomModule
-
-//lateinit var database: AppDatabase
-//
+import timber.log.Timber
 
 class InitApp : DaggerApplication(), HasActivityInjector {
     private val _applicationInjector by lazy {
@@ -21,33 +19,12 @@ class InitApp : DaggerApplication(), HasActivityInjector {
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> = _applicationInjector
+
+    override fun onCreate() {
+        super.onCreate()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+    }
 }
-/**
-
-//        DaggerAppComponent.builder()
-//            .appModule(AppModule(application))
-//            .roomModule(RoomModule(application))
-//            .build()
-//            .inject(this)
-}
-
-
-//
-//    companion object {
-//        lateinit var INSTANCE: InitApp
-//    }
-//
-//    init {
-//        INSTANCE = this
-//    }
-//
-//    override fun onCreate() {
-//        super.onCreate()
-//        database = AppDatabase.getInstance(this)
-//        INSTANCE = this
-//
-//        if (BuildConfig.DEBUG) {
-//            Timber.plant(Timber.DebugTree())
-//        }
-//    }
-}**/
