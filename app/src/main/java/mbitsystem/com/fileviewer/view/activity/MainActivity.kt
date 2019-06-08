@@ -61,14 +61,9 @@ class MainActivity : BaseActivity(), MainView {
 
     override fun deleteMovieIntent(): Observable<File> {
         val observable = Observable.create<File> { emitter ->
-            // Add the functionality to swipe items in the
-            // recycler view to delete that item
             val helper = ItemTouchHelper(
-                object : ItemTouchHelper.SimpleCallback(
-                    0,
-                    ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-                ) {
-                    // We are not implementing onMove() in this app
+                object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+
                     override fun onMove(
                         recyclerView: RecyclerView,
                         viewHolder: RecyclerView.ViewHolder,

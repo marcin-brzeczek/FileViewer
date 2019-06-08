@@ -1,6 +1,7 @@
 package mbitsystem.com.fileviewer.data
 
 import io.reactivex.Observable
+import mbitsystem.com.fileviewer.data.model.File
 import mbitsystem.com.fileviewer.data.repository.FileRepository
 import mbitsystem.com.fileviewer.domain.FileState
 import java.io.BufferedInputStream
@@ -21,6 +22,8 @@ class FileInteractor(private val fileRepository: FileRepository) : Interactor {
     override fun getFiles(): Observable<FileState> = fileRepository.fileDao.getAllOrderByNameAsceding()
         .map<FileState> { FileState.DataState(it) }
         .onErrorReturn { FileState.ErrorState(it.message) }
+
+    override fun deleteFile(file: File): Observable<Unit> = fileRepository.fileDao.deleteFile(file).toObservable()
 
     fun getFileInputStream(urlString: String): Observable<FileState> {
         return Observable.just(urlString)

@@ -2,6 +2,7 @@ package mbitsystem.com.fileviewer.presenter
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import mbitsystem.com.fileviewer.data.FileInteractor
 import mbitsystem.com.fileviewer.domain.FileState
 import mbitsystem.com.fileviewer.view.MainView
@@ -17,6 +18,7 @@ class MainPresenter(private val fileInteractor: FileInteractor) {
         compositeDisposable.add(displayAllFiles())
         compositeDisposable.add(displayFilesAsceding())
         compositeDisposable.add(displayFilesDesceding())
+        compositeDisposable.add(deleteFile())
     }
 
     fun unbind() {
@@ -45,4 +47,11 @@ class MainPresenter(private val fileInteractor: FileInteractor) {
         .flatMap<FileState> { fileInteractor.getFilesAsceding() }
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { view.render(it) }
+
+    private fun deleteFile() = view.deleteMovieIntent()
+        .doOnNext { Timber.d("Intent: Delete file") }
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .observeOn(Schedulers.io())
+        .flatMap<Unit> { fileInteractor.deleteFile(it) }
+        .subscribe()
 }
