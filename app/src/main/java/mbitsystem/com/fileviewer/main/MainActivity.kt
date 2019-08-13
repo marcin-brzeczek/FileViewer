@@ -1,4 +1,4 @@
-package mbitsystem.com.fileviewer.view.activity
+package mbitsystem.com.fileviewer.main
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,13 +11,11 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main.*
 import mbitsystem.com.fileviewer.R
+import mbitsystem.com.fileviewer.base.BaseActivity
 import mbitsystem.com.fileviewer.data.FileInteractor
 import mbitsystem.com.fileviewer.data.model.File
 import mbitsystem.com.fileviewer.data.repository.FileRepository
-import mbitsystem.com.fileviewer.domain.FileState
-import mbitsystem.com.fileviewer.presenter.MainPresenter
-import mbitsystem.com.fileviewer.view.MainView
-import mbitsystem.com.fileviewer.view.adapter.FilesAdapter
+import mbitsystem.com.fileviewer.state.FileState
 import org.jetbrains.anko.longToast
 import timber.log.Timber
 import javax.inject.Inject
@@ -91,15 +89,9 @@ class MainActivity : BaseActivity(), MainView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
-            R.id.asceding -> {
-                intentFilterAscedingPublisher.onNext(Unit)
-                longToast("Asceding")
-            }
-            R.id.desceding -> {
-                intentFilterDescedingPublisher.onNext(Unit)
-                longToast("Desceding")
-            }
+        when (item?.itemId) {
+            R.id.asceding ->  intentFilterAscedingPublisher.onNext(Unit)
+            R.id.desceding -> intentFilterDescedingPublisher.onNext(Unit)
         }
         return true
     }

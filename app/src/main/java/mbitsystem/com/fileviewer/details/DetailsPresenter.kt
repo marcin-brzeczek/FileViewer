@@ -1,11 +1,10 @@
-package mbitsystem.com.fileviewer.presenter
+package mbitsystem.com.fileviewer.details
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import mbitsystem.com.fileviewer.data.FileInteractor
-import mbitsystem.com.fileviewer.domain.FileState
-import mbitsystem.com.fileviewer.view.DetailsView
+import mbitsystem.com.fileviewer.state.FileState
 import timber.log.Timber
 
 class DetailsPresenter(private val fileInteractor: FileInteractor) {

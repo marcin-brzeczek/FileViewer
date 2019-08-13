@@ -1,8 +1,8 @@
-package mbitsystem.com.fileviewer.view
+package mbitsystem.com.fileviewer.main
 
 import io.reactivex.Observable
 import mbitsystem.com.fileviewer.data.model.File
-import mbitsystem.com.fileviewer.domain.FileState
+import mbitsystem.com.fileviewer.state.FileState
 
 interface MainView {
     fun render(state: FileState)

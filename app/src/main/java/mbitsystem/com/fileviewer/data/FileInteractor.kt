@@ -3,7 +3,7 @@ package mbitsystem.com.fileviewer.data
 import io.reactivex.Observable
 import mbitsystem.com.fileviewer.data.model.File
 import mbitsystem.com.fileviewer.data.repository.FileRepository
-import mbitsystem.com.fileviewer.domain.FileState
+import mbitsystem.com.fileviewer.state.FileState
 import java.io.BufferedInputStream
 import java.io.IOException
 import java.io.InputStream

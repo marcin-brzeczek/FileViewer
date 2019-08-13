@@ -1,4 +1,4 @@
-package mbitsystem.com.fileviewer.view.activity
+package mbitsystem.com.fileviewer.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

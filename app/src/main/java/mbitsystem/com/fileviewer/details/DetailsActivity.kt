@@ -1,17 +1,17 @@
-package mbitsystem.com.fileviewer.view.activity
+package mbitsystem.com.fileviewer.details
 
 import android.os.Bundle
 import android.view.View
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_details.*
-import mbitsystem.com.fileviewer.KEY_INTENT_FILE
 import mbitsystem.com.fileviewer.R
+import mbitsystem.com.fileviewer.base.BaseActivity
 import mbitsystem.com.fileviewer.data.FileInteractor
 import mbitsystem.com.fileviewer.data.model.File
 import mbitsystem.com.fileviewer.data.repository.FileRepository
-import mbitsystem.com.fileviewer.domain.FileState
-import mbitsystem.com.fileviewer.presenter.DetailsPresenter
-import mbitsystem.com.fileviewer.view.DetailsView
+import mbitsystem.com.fileviewer.main.MainActivity
+import mbitsystem.com.fileviewer.state.FileState
+import mbitsystem.com.fileviewer.utils.KEY_INTENT_FILE
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.longToast

@@ -1,4 +1,4 @@
-package mbitsystem.com.fileviewer.view.adapter
+package mbitsystem.com.fileviewer.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_file.view.*
-import mbitsystem.com.fileviewer.KEY_INTENT_FILE
 import mbitsystem.com.fileviewer.R
 import mbitsystem.com.fileviewer.data.model.File
-import mbitsystem.com.fileviewer.view.activity.DetailsActivity
+import mbitsystem.com.fileviewer.details.DetailsActivity
+import mbitsystem.com.fileviewer.utils.KEY_INTENT_FILE
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
@@ -43,7 +43,5 @@ class FilesAdapter : ListAdapter<File, FilesAdapter.FileHolder>(DiffCallback()) 
 
 class DiffCallback : DiffUtil.ItemCallback<File>() {
     override fun areItemsTheSame(oldItem: File, newItem: File): Boolean = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: File, newItem: File): Boolean =
-        oldItem.date == newItem.date &&
-                oldItem.filename == newItem.filename
+    override fun areContentsTheSame(oldItem: File, newItem: File): Boolean = oldItem.date == newItem.date && oldItem.filename == newItem.filename
 }

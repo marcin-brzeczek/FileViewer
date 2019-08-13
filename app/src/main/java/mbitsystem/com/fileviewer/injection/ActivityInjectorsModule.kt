@@ -2,8 +2,8 @@ package mbitsystem.com.fileviewer.injection
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import mbitsystem.com.fileviewer.view.activity.DetailsActivity
-import mbitsystem.com.fileviewer.view.activity.MainActivity
+import mbitsystem.com.fileviewer.details.DetailsActivity
+import mbitsystem.com.fileviewer.main.MainActivity
 
 @Module
 abstract class ActivityInjectorsModule {

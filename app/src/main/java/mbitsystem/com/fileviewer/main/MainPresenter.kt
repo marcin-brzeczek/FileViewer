@@ -1,16 +1,15 @@
-package mbitsystem.com.fileviewer.presenter
+package mbitsystem.com.fileviewer.main
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import mbitsystem.com.fileviewer.data.FileInteractor
-import mbitsystem.com.fileviewer.domain.FileState
-import mbitsystem.com.fileviewer.view.MainView
+import mbitsystem.com.fileviewer.state.FileState
 import timber.log.Timber
 
 class MainPresenter(private val fileInteractor: FileInteractor) {
 
-    private lateinit var view: MainView
+     lateinit var view: MainView
     private val compositeDisposable = CompositeDisposable()
 
     fun bind(view: MainView) {
@@ -27,7 +26,7 @@ class MainPresenter(private val fileInteractor: FileInteractor) {
         }
     }
 
-    private fun displayAllFiles() = view.getFilesIntent()
+     fun displayAllFiles() = view.getFilesIntent()
         .doOnNext { Timber.d("Intent: Display Files") }
         .flatMap<FileState> { fileInteractor.getFiles() }
         .startWith(FileState.LoadingState)
@@ -35,20 +34,20 @@ class MainPresenter(private val fileInteractor: FileInteractor) {
         .subscribe { view.render(it) }
 
 
-    private fun displayFilesDesceding() = view.getFilesDescedingIntent()
+     fun displayFilesDesceding() = view.getFilesDescedingIntent()
         .doOnNext { Timber.d("Intent: Display Files Desceding") }
         .flatMap<FileState> { fileInteractor.getFilesDesceding() }
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { view.render(it) }
 
 
-    private fun displayFilesAsceding() = view.getFilesAscedingIntent()
+     fun displayFilesAsceding() = view.getFilesAscedingIntent()
         .doOnNext { Timber.d("Intent: Display Files Asceding") }
         .flatMap<FileState> { fileInteractor.getFilesAsceding() }
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { view.render(it) }
 
-    private fun deleteFile() = view.deleteMovieIntent()
+     fun deleteFile() = view.deleteMovieIntent()
         .doOnNext { Timber.d("Intent: Delete file") }
         .subscribeOn(AndroidSchedulers.mainThread())
         .observeOn(Schedulers.io())

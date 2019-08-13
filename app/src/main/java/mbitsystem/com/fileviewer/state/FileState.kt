@@ -1,4 +1,4 @@
-package mbitsystem.com.fileviewer.domain
+package mbitsystem.com.fileviewer.state
 
 import mbitsystem.com.fileviewer.data.model.File
 import java.io.InputStream
