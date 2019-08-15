@@ -11,10 +11,10 @@ import mbitsystem.com.fileviewer.data.model.File
 @Dao
 interface FileDao {
     @Query("select * from files order by filename asc")
-    fun getAllOrderByNameAsceding(): Observable<List<File>>
+    fun getAllOrderByNameAscending(): Observable<List<File>>
 
     @Query("select * from files order by filename desc")
-    fun getAllOrderByNameDesceding(): Observable<List<File>>
+    fun getAllOrderByNameDescending(): Observable<List<File>>
 
     @Delete
     fun deleteFile(file: File): Completable

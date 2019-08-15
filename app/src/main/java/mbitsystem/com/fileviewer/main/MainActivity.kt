@@ -12,9 +12,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main.*
 import mbitsystem.com.fileviewer.R
 import mbitsystem.com.fileviewer.base.BaseActivity
-import mbitsystem.com.fileviewer.data.FileInteractor
 import mbitsystem.com.fileviewer.data.model.File
-import mbitsystem.com.fileviewer.data.repository.FileRepository
 import mbitsystem.com.fileviewer.state.FileState
 import org.jetbrains.anko.longToast
 import timber.log.Timber
@@ -23,13 +21,11 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), MainView {
 
     @Inject
-    lateinit var fileRepository: FileRepository
+    lateinit var presenter: MainPresenter
 
-    private lateinit var presenter: MainPresenter
+    private val intentFilterAscendingPublisher = PublishSubject.create<Unit>()
 
-    private val intentFilterAscedingPublisher = PublishSubject.create<Unit>()
-
-    private val intentFilterDescedingPublisher = PublishSubject.create<Unit>()
+    private val intentFilterDescendingPublisher = PublishSubject.create<Unit>()
 
     override fun render(state: FileState) {
         Timber.d("State: ${state.javaClass.simpleName}")
@@ -46,15 +42,14 @@ class MainActivity : BaseActivity(), MainView {
 
         recycler_view.adapter = FilesAdapter()
         recycler_view.layoutManager = LinearLayoutManager(this)
-        presenter = MainPresenter(FileInteractor(fileRepository))
         presenter.bind(this)
     }
 
     override fun getFilesIntent(): Observable<Unit> = Observable.just(Unit)
 
-    override fun getFilesDescedingIntent(): Observable<Unit> = intentFilterDescedingPublisher
+    override fun getFilesDescendingIntent(): Observable<Unit> = intentFilterDescendingPublisher
 
-    override fun getFilesAscedingIntent(): Observable<Unit> = intentFilterAscedingPublisher
+    override fun getFilesAscendingIntent(): Observable<Unit> = intentFilterAscendingPublisher
 
 
     override fun deleteMovieIntent(): Observable<File> {
@@ -71,7 +66,7 @@ class MainActivity : BaseActivity(), MainView {
                     }
 
                     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                        val position = viewHolder.getAdapterPosition()
+                        val position = viewHolder.adapterPosition
                         val file = (recycler_view.adapter as FilesAdapter).getFileAtPosition(position)
                         emitter.onNext(file)
                     }
@@ -90,8 +85,8 @@ class MainActivity : BaseActivity(), MainView {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.asceding ->  intentFilterAscedingPublisher.onNext(Unit)
-            R.id.desceding -> intentFilterDescedingPublisher.onNext(Unit)
+            R.id.asceding -> intentFilterAscendingPublisher.onNext(Unit)
+            R.id.desceding -> intentFilterDescendingPublisher.onNext(Unit)
         }
         return true
     }

@@ -1,32 +1,37 @@
 package mbitsystem.com.fileviewer.main
 
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import mbitsystem.com.fileviewer.data.FileInteractor
+import mbitsystem.com.fileviewer.data.model.File
 import mbitsystem.com.fileviewer.state.FileState
 import timber.log.Timber
+import javax.inject.Inject
 
-class MainPresenter(private val fileInteractor: FileInteractor) {
+class MainPresenter @Inject constructor(val fileInteractor: FileInteractor) : IMainPresenter {
 
-     lateinit var view: MainView
+    lateinit var view: MainView
     private val compositeDisposable = CompositeDisposable()
 
-    fun bind(view: MainView) {
+    override fun bind(view: MainView) {
         this.view = view
         compositeDisposable.add(displayAllFiles())
-        compositeDisposable.add(displayFilesAsceding())
-        compositeDisposable.add(displayFilesDesceding())
+        compositeDisposable.add(displayFilesAscending())
+        compositeDisposable.add(displayFilesDescending())
         compositeDisposable.add(deleteFile())
     }
 
-    fun unbind() {
+    override fun unbind() {
         if (!compositeDisposable.isDisposed) {
             compositeDisposable.dispose()
         }
     }
 
-     fun displayAllFiles() = view.getFilesIntent()
+    override fun getFilesObservable(): Observable<List<File>> = fileInteractor.getFilesObservable()
+
+    override fun displayAllFiles() = view.getFilesIntent()
         .doOnNext { Timber.d("Intent: Display Files") }
         .flatMap<FileState> { fileInteractor.getFiles() }
         .startWith(FileState.LoadingState)
@@ -34,20 +39,20 @@ class MainPresenter(private val fileInteractor: FileInteractor) {
         .subscribe { view.render(it) }
 
 
-     fun displayFilesDesceding() = view.getFilesDescedingIntent()
+    override fun displayFilesDescending() = view.getFilesDescendingIntent()
         .doOnNext { Timber.d("Intent: Display Files Desceding") }
         .flatMap<FileState> { fileInteractor.getFilesDesceding() }
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { view.render(it) }
 
 
-     fun displayFilesAsceding() = view.getFilesAscedingIntent()
+    override fun displayFilesAscending() = view.getFilesAscendingIntent()
         .doOnNext { Timber.d("Intent: Display Files Asceding") }
         .flatMap<FileState> { fileInteractor.getFilesAsceding() }
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { view.render(it) }
 
-     fun deleteFile() = view.deleteMovieIntent()
+    override fun deleteFile() = view.deleteMovieIntent()
         .doOnNext { Timber.d("Intent: Delete file") }
         .subscribeOn(AndroidSchedulers.mainThread())
         .observeOn(Schedulers.io())

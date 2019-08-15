@@ -6,9 +6,7 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_details.*
 import mbitsystem.com.fileviewer.R
 import mbitsystem.com.fileviewer.base.BaseActivity
-import mbitsystem.com.fileviewer.data.FileInteractor
 import mbitsystem.com.fileviewer.data.model.File
-import mbitsystem.com.fileviewer.data.repository.FileRepository
 import mbitsystem.com.fileviewer.main.MainActivity
 import mbitsystem.com.fileviewer.state.FileState
 import mbitsystem.com.fileviewer.utils.KEY_INTENT_FILE
@@ -22,14 +20,11 @@ import javax.inject.Inject
 class DetailsActivity : BaseActivity(), DetailsView {
 
     @Inject
-    lateinit var fileRepository: FileRepository
-
-    private lateinit var presenter: DetailsPresenter
+    lateinit var presenter: DetailsPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
-        presenter = DetailsPresenter(FileInteractor(fileRepository))
         presenter.bind(this)
     }
 
@@ -41,7 +36,8 @@ class DetailsActivity : BaseActivity(), DetailsView {
         }
     }
 
-    override fun displayFileIntent(): Observable<File> = Observable.just(intent.extras.getParcelable(KEY_INTENT_FILE) as File)
+    override fun displayFileIntent(): Observable<File> =
+        Observable.just(intent.extras.getParcelable(KEY_INTENT_FILE) as File)
 
     private fun renderLoadingState() {
         progress_bar.visibility = View.VISIBLE

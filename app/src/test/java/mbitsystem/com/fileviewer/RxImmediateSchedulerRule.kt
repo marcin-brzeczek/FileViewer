@@ -30,7 +30,6 @@ class RxImmediateSchedulerRule : TestRule {
                 try {
                     base.evaluate()
                 } finally {
-                    //3
                     RxJavaPlugins.reset()
                     RxAndroidPlugins.reset()
                 }

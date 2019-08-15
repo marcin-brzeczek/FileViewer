@@ -8,22 +8,25 @@ import java.io.BufferedInputStream
 import java.io.IOException
 import java.io.InputStream
 import java.net.URL
+import javax.inject.Inject
 
-class FileInteractor(private val fileRepository: FileRepository) : Interactor {
+class FileInteractor @Inject constructor(val fileRepository: FileRepository) : Interactor {
 
-    override fun getFilesAsceding(): Observable<FileState> = fileRepository.fileDao.getAllOrderByNameAsceding()
+    override fun getFilesAsceding(): Observable<FileState> = fileRepository.getAllOrderByNameAscending()
         .map<FileState> { FileState.DataState(it) }
         .onErrorReturn { FileState.ErrorState(it.message) }
 
-    override fun getFilesDesceding(): Observable<FileState> = fileRepository.fileDao.getAllOrderByNameDesceding()
+    override fun getFilesDesceding(): Observable<FileState> = fileRepository.getAllOrderByNameDescending()
         .map<FileState> { FileState.DataState(it) }
         .onErrorReturn { FileState.ErrorState(it.message) }
 
-    override fun getFiles(): Observable<FileState> = fileRepository.fileDao.getAllOrderByNameAsceding()
+    override fun getFilesObservable(): Observable<List<File>> = fileRepository.getFilesObservable()
+
+    override fun getFiles(): Observable<FileState> = fileRepository.getAllOrderByNameAscending()
         .map<FileState> { FileState.DataState(it) }
         .onErrorReturn { FileState.ErrorState(it.message) }
 
-    override fun deleteFile(file: File): Observable<Unit> = fileRepository.fileDao.deleteFile(file).toObservable()
+    override fun deleteFile(file: File): Observable<Unit> = fileRepository.deleteFile(file).toObservable()
 
     fun getFileInputStream(urlString: String): Observable<FileState> {
         return Observable.just(urlString)
