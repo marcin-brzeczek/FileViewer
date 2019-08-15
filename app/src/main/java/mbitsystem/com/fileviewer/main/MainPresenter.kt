@@ -1,11 +1,9 @@
 package mbitsystem.com.fileviewer.main
 
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import mbitsystem.com.fileviewer.data.FileInteractor
-import mbitsystem.com.fileviewer.data.model.File
 import mbitsystem.com.fileviewer.state.FileState
 import timber.log.Timber
 import javax.inject.Inject
@@ -28,8 +26,6 @@ class MainPresenter @Inject constructor(val fileInteractor: FileInteractor) : IM
             compositeDisposable.dispose()
         }
     }
-
-    override fun getFilesObservable(): Observable<List<File>> = fileInteractor.getFilesObservable()
 
     override fun displayAllFiles() = view.getFilesIntent()
         .doOnNext { Timber.d("Intent: Display Files") }

@@ -9,6 +9,4 @@ interface IRepository {
     fun getAllOrderByNameDescending(): Observable<List<File>>
     fun getAllOrderByNameAscending(): Observable<List<File>>
     fun deleteFile(file: File): Completable
-
-    fun getFilesObservable(): Observable<List<File>>
 }

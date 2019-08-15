@@ -14,6 +14,4 @@ open class FileRepository @Inject constructor(val fileDao: FileDao) : IRepositor
     override fun deleteFile(file: File): Completable = fileDao.deleteFile(file)
 
     override fun insertAll(files: List<File>) = fileDao.insertAll(files)
-
-    override fun getFilesObservable(): Observable<List<File>> = fileDao.getAllOrderByNameAscending()
 }

@@ -9,6 +9,4 @@ interface Interactor {
     fun getFilesAsceding(): Observable<FileState>
     fun getFilesDesceding(): Observable<FileState>
     fun deleteFile(file: File): Observable<Unit>
-    /*test*/
-    fun getFilesObservable(): Observable<List<File>>
 }

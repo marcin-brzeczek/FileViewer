@@ -20,8 +20,6 @@ class FileInteractor @Inject constructor(val fileRepository: FileRepository) : I
         .map<FileState> { FileState.DataState(it) }
         .onErrorReturn { FileState.ErrorState(it.message) }
 
-    override fun getFilesObservable(): Observable<List<File>> = fileRepository.getFilesObservable()
-
     override fun getFiles(): Observable<FileState> = fileRepository.getAllOrderByNameAscending()
         .map<FileState> { FileState.DataState(it) }
         .onErrorReturn { FileState.ErrorState(it.message) }
